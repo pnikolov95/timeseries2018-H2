@@ -1,3 +1,6 @@
+## Do not remove the following line, otherwise the automatic code check will fail.
+install.packages('xts')
+
 library(xts)
 
 ## a) Read data and create an xts object
