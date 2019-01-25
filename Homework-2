@@ -1,0 +1,28 @@
+## Do not remove the following line, otherwise the automatic code check will fail.
+install.packages('xts')
+
+library(xts)
+
+## a) Read data and create an xts object
+
+gdp <- read.csv('https://s3.eu-central-1.amazonaws.com/sf-timeseries/data/gdp_bg_qrt_2000-2017.csv')
+timeIndex <- as.yearqtr(gdp$Index, format = '%YQ%q')
+
+gdpSeries <- xts(gdp$GDP, order.by = timeIndex)
+
+## b)
+
+plot(gdpSeries)
+
+## The time series does not appear to be stationary since the variance seems to shift over time.
+## The series does appear to have a seasonal pattern - this can also be observed if we decompose 
+## the time series.
+
+## c)
+
+growthrateSeries <- diff(log(gdpSeries), 4)
+
+## d)
+
+plot(growthrateSeries)
+## The growth rate series does not appear to follow a certain trend.
